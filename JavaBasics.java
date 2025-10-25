@@ -1,19 +1,16 @@
+
 import java.util.*;
+
 public class JavaBasics {
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        if(n>-100 && n<100) {
-            String str = Integer.toString(n);
-            if(str != null) {
-                System.out.println("Good job");
-            }
-            else {
-                System.out.println("Wrong answer");
-            }
+        System.out.println("================================");
+        for (int i=0; i<3; i++){
+            String name = sc.next();
+            int num = sc.nextInt();
+            System.out.printf("%-14s %03d %n", name, num);
         }
-        else {
-            System.out.println("Wrong answer");
-        }
+        System.out.println("================================");
     }
-}            
+}

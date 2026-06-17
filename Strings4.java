@@ -1,5 +1,5 @@
 public class Strings4 {
-    public static String Upeercase(String str){
+    public static String toUpeercase(String str){
         StringBuilder sb = new StringBuilder("");
         sb.append(Character.toUpperCase(str.charAt(0)));
         for(int i=1; i<str.length();i++){

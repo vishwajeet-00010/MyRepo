@@ -1,0 +1,30 @@
+public class JavaArrays18{
+    public static int xorSum(int[] arr, int n){
+        n = arr.length;
+        int res[] = new int[n];
+        int ans=0;
+        //right direction
+        for(int start =0; start<n; start++){
+            int xor =0;
+            int sum =0;
+            for(int i =0; i<n;i++){
+                int idx = (start +i)%n;
+                xor = xor ^ arr[idx];
+                sum+= xor;
+            }
+            ans = Math.max(ans, sum);
+        }
+        //left direction
+        for(int start =0; start<n; start++){
+            int xor =0;
+            int sum=0;
+            for(int i=0;i<n;i++){
+                int idx = (start - i + n) % n;
+                xor = xor^ arr[idx];
+                sum+= xor;
+            }
+            ans = Math.max(ans,sum);
+        }
+        return ans;
+    }
+}

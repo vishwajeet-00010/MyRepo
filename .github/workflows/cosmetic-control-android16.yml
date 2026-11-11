@@ -29,7 +29,13 @@ jobs:
         with:
           gradle-version: '8.11.1'
       - name: Android 16 SDK
-        run: sdkmanager --install 'platforms;android-36' 'build-tools;36.0.0'
+        run: |
+          export ANDROID_HOME=/usr/local/lib/android/sdk
+          export ANDROID_SDK_ROOT="$ANDROID_HOME"
+          echo "$ANDROID_HOME" >> "$GITHUB_PATH"
+          yes | "$ANDROID_HOME/cmdline-tools/16.0/bin/sdkmanager" --licenses >/dev/null || true
+          "$ANDROID_HOME/cmdline-tools/16.0/bin/sdkmanager" --install 'platforms;android-36' 'build-tools;36.0.0'
+          echo "ANDROID_HOME=$ANDROID_HOME" >> "$GITHUB_ENV"
       - name: Source security checks
         run: python3 tools/security_scan.py
       - name: Android APK build and unit tests

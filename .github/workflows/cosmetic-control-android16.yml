@@ -19,23 +19,16 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
-      - name: Use preinstalled Android SDK
-        run: |
-          echo "ANDROID_HOME=$ANDROID_HOME"
-          ls "$ANDROID_HOME/cmdline-tools" || true
-          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --version || sdkmanager --version
+      - name: Android SDK setup (current action)
+        uses: android-actions/setup-android@v4
+        with:
+          packages: 'platform-tools'
       - name: Gradle 8.11.1
         uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.11.1'
       - name: Android 16 SDK
-        run: |
-          export ANDROID_HOME=/usr/local/lib/android/sdk
-          export ANDROID_SDK_ROOT="$ANDROID_HOME"
-          echo "$ANDROID_HOME" >> "$GITHUB_PATH"
-          yes | "$ANDROID_HOME/cmdline-tools/16.0/bin/sdkmanager" --licenses >/dev/null || true
-          "$ANDROID_HOME/cmdline-tools/16.0/bin/sdkmanager" --install 'platforms;android-36' 'build-tools;36.0.0'
-          echo "ANDROID_HOME=$ANDROID_HOME" >> "$GITHUB_ENV"
+        run: sdkmanager --install 'platforms;android-36' 'build-tools;36.0.0'
       - name: Source security checks
         run: python3 tools/security_scan.py
       - name: Android APK build and unit tests
